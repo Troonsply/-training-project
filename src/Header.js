@@ -9,6 +9,10 @@ import Paper from '@material-ui/core/Paper';
 import MenuItem from '@material-ui/core/MenuItem';
 import MenuList from '@material-ui/core/MenuList';
 import { makeStyles } from '@material-ui/core/styles';
+import WorkTwoToneIcon from '@material-ui/icons/WorkTwoTone';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import AccountBalanceTwoToneIcon from '@material-ui/icons/AccountBalanceTwoTone';
+import AccountTreeTwoToneIcon from '@material-ui/icons/AccountTreeTwoTone';
 
 import Contract  from "./Contract";
 import Organization from "./Organization";
@@ -22,25 +26,47 @@ const useStyles = makeStyles((theme) => ({
   paper: {
     marginRight: theme.spacing(2),
   },
+  menu: {
+    height: '100vh',
+  }
 }));
 
 export default function Header() {
   const classes = useStyles();
   return (
-    <div 
-      style={{
-      margin: '20px'}} className={classes.root}>
+    <div className={classes.root}>
       <Router>
         <Paper className={classes.paper}>
-          <MenuList>
+          <MenuList className={classes.menu}>
             <MenuItem>
-              <NavLink to="/contract" style={{ textDecoration: 'none', color: 'black' }} activeStyle={{ color: 'blue' }} >Договор</NavLink>
+              <ListItemIcon>
+                <WorkTwoToneIcon fontSize="medium" />
+              </ListItemIcon>
+              <NavLink to="/contract" 
+                style={{ textDecoration: 'none', color: 'black' }} 
+                activeStyle={{ color: '#1976D2' }} >
+              Договор
+              </NavLink>
             </MenuItem>
             <MenuItem>
-              <NavLink to="/organization" style={{ textDecoration: 'none', color: 'black' }} activeStyle={{ color: 'blue' }}>Организация</NavLink>
+              <ListItemIcon>
+                <AccountBalanceTwoToneIcon fontSize="medium" />
+              </ListItemIcon>
+              <NavLink to="/organization" 
+                style={{ textDecoration: 'none', color: 'black' }} 
+                activeStyle={{ color: 'blue' }}>
+                  Организация
+              </NavLink>
             </MenuItem>
             <MenuItem>
-              <NavLink to="/projects" style={{ textDecoration: 'none', color: 'black' }} activeStyle={{ color: 'blue' }}>Проекты</NavLink>
+              <ListItemIcon>
+                <AccountTreeTwoToneIcon fontSize="medium" />
+              </ListItemIcon>
+              <NavLink to="/projects" 
+                style={{ textDecoration: 'none', color: 'black' }} 
+                activeStyle={{ color: 'blue' }}>
+                  Проекты
+              </NavLink>
             </MenuItem>
           </MenuList>
         </Paper>
