@@ -5,36 +5,41 @@ import 'ag-grid-enterprise';
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 // import FormaContract from "./FormaContract";
+// import { makeStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
 
 const connect = require("react-redux").connect;
 const actions = require("./actions.jsx");
-
+// const useStyles = makeStyles((theme) => ({
+//   root: {
+//     '& > *': {
+//       margin: theme.spacing(1),
+//     },
+//   },
+// }));
 class Contract extends Component {
   constructor(props) {
     super(props);
     
     this.state = {
+      
       columnDefs: [
         {
         headerName: "Check", 
         rowDrag: true,
         checkboxSelection: true, 
-        maxWidth:150
       },
       {
         headerName: "Number", 
         field: "number", 
-        maxWidth:150
       }, 
       {
         headerName: "Topic", 
         field: "topic",
-        maxWidth:150
       },
       {
         headerName: "Organization", 
         field: "organization",
-        maxWidth:150
       },
     ],
       rowData: [{
@@ -45,9 +50,6 @@ class Contract extends Component {
         number: "3", topic: "Rent", organization: 15 
       }],
       defaultColDef: {
-        flex: 1,
-        minWidth: 100,
-        editable: true,
         sortable: true,
         filter: true
       },
@@ -72,26 +74,34 @@ class Contract extends Component {
   render() {
     return (
       <div
-        className="ag-theme-alpine"
-        style={{
-          height: '250px',
-          width: '450px',
-          margin: '0 auto'
-    }} 
+        style={{ display:'flex',}} 
       >
-        <button onClick={this.onButtonClickAdd.bind(this)}
-        addButton={this.props.addButton}>Add rows</button>
-        <button onClick={this.onButtonClickDelete.bind(this)}
-        deleteButton={this.props.deleteButton}>Delete rows</button>
-        <AgGridReact
-          columnDefs={this.state.columnDefs}
-          rowSelection="multiple"
-          defaultColDef={this.state.defaultColDef}
-          rowData={this.state.rowData}
-          onGridReady={this.onGridReady}
-          rowDragManaged={true}
-          animateRows={true}>
-        </AgGridReact>
+        <div style={{display:'flex', 'flex-direction': 'column', width:'15vw', padding:'10px',}} >
+          <Button
+            style={{margin:'10px',}}
+            variant="contained" 
+            color="primary" 
+            onClick={this.onButtonClickAdd.bind(this)}
+            addButton={this.props.addButton}>Add rows
+          </Button>
+          <Button 
+            style={{margin:'10px',}}
+            variant="contained" 
+            color="primary" 
+            onClick={this.onButtonClickDelete.bind(this)}
+            deleteButton={this.props.deleteButton}>Delete
+          </Button>
+          </div>
+          <div className="ag-theme-alpine" style={ {height: '100vh', width: '100vw'} }>
+            <AgGridReact
+              columnDefs={this.state.columnDefs}
+              defaultColDef={this.state.defaultColDef}
+              rowData={this.state.rowData}
+              onGridReady={this.onGridReady}
+              rowDragManaged={true}
+              animateRows={true}>
+            </AgGridReact>
+          </div>
       </div>
     );
   }
