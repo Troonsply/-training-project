@@ -4,12 +4,11 @@ import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
 import 'ag-grid-enterprise';
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-// import FormaContract from "./FormaContract";
 
 const connect = require("react-redux").connect;
 const actions = require("./actions.jsx");
 
-class Contract extends Component {
+class Project extends Component {
   constructor(props) {
     super(props);
     
@@ -22,27 +21,24 @@ class Contract extends Component {
         maxWidth:150
       },
       {
-        headerName: "Number", 
-        field: "number", 
-        maxWidth:150
+        headerName: "Name", 
+        field: "name", 
       }, 
-      {
-        headerName: "Topic", 
-        field: "topic",
-        maxWidth:150
-      },
       {
         headerName: "Organization", 
         field: "organization",
-        maxWidth:150
+      },
+      {
+        headerName: "List of people", 
+        field: "list",
       },
     ],
       rowData: [{
-        number: "1", topic: "Purchase", organization: 13
+        name: "ABC", organization: "Purchase", list: ''
       }, {
-        number: "2", topic: "Sale", organization: 14
+        name: "CBA", organization: "Sale", list: ''
       }, {
-        number: "3", topic: "Rent", organization: 15 
+        name: "CAB", organization: "Rent", list: '' 
       }],
       defaultColDef: {
         flex: 1,
@@ -60,7 +56,7 @@ class Contract extends Component {
   onButtonClickAdd() {
     const array = this.state.rowData;
     console.log(this.state.rowData);
-    const element = { number: "", topic: " ", organization:"" };
+    const element = { name: "", organization: " ", list:"" };
     array.push(element);
     return this.gridApi.setRowData(array);
   }
@@ -98,12 +94,12 @@ class Contract extends Component {
 }
 
 ReactDOM.render(
-  <Contract></Contract>, document.querySelector('#root')
+  <Project></Project>, document.querySelector('#root')
 );
-export default Contract;
+export default Project;
 function mapStateToProps(state) {
   return {
     buttons: state.get("buttons")
   };
 }
-connect(mapStateToProps, actions)(Contract)
+connect(mapStateToProps, actions)(Project)

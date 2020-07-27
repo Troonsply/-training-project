@@ -1,40 +1,62 @@
-import React, { Component } from 'react';
+import React from 'react';
 import {
   BrowserRouter as Router,
   Switch,
   Route,
   NavLink
 } from "react-router-dom";
+import Paper from '@material-ui/core/Paper';
+import MenuItem from '@material-ui/core/MenuItem';
+import MenuList from '@material-ui/core/MenuList';
+import { makeStyles } from '@material-ui/core/styles';
+
 import Contract  from "./Contract";
 import Organization from "./Organization";
-import Button from '@material-ui/core/Button';
+import Projects  from "./Projects";
 
-class Header extends Component {
-  
-  render() {
-    return (
-      <div 
-        style={{
-        margin: '20px'}}>
-        <Router>
-          <Button variant="contained" style={{ margin: '0 10px' }}>
-            <NavLink to="/contract" style={{ textDecoration: 'none', color: 'black' }} activeStyle={{ color: 'blue' }} >Договор</NavLink>
-          </Button>
-          <Button variant="contained" >
-            <NavLink to="/organization" style={{ textDecoration: 'none', color: 'black' }} activeStyle={{ color: 'blue' }}>Организация</NavLink>
-          </Button>
 
-          <Switch>
-            <Route path="/contract" component={Contract}>
-              <Contract />
-            </Route>
-            <Route path="/organization" component={Organization }>
-              <Organization />
-            </Route>
-          </Switch>
-        </Router>
-      </div>
-    );
-  }
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: 'flex',
+  },
+  paper: {
+    marginRight: theme.spacing(2),
+  },
+}));
+
+export default function Header() {
+  const classes = useStyles();
+  return (
+    <div 
+      style={{
+      margin: '20px'}} className={classes.root}>
+      <Router>
+        <Paper className={classes.paper}>
+          <MenuList>
+            <MenuItem>
+              <NavLink to="/contract" style={{ textDecoration: 'none', color: 'black' }} activeStyle={{ color: 'blue' }} >Договор</NavLink>
+            </MenuItem>
+            <MenuItem>
+              <NavLink to="/organization" style={{ textDecoration: 'none', color: 'black' }} activeStyle={{ color: 'blue' }}>Организация</NavLink>
+            </MenuItem>
+            <MenuItem>
+              <NavLink to="/projects" style={{ textDecoration: 'none', color: 'black' }} activeStyle={{ color: 'blue' }}>Проекты</NavLink>
+            </MenuItem>
+          </MenuList>
+        </Paper>
+        <Switch>
+          <Route path="/contract" component={Contract}>
+            <Contract />
+          </Route>
+          <Route path="/organization" component={Organization }>
+            <Organization />
+          </Route>
+          <Route path="/projects" component={Projects }>
+            <Projects />
+          </Route>
+        </Switch>
+      </Router>
+    </div>
+  );
 }
-export default Header;
+// export default Header;
