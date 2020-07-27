@@ -28,18 +28,22 @@ class Contract extends Component {
         headerName: "Check", 
         rowDrag: true,
         checkboxSelection: true, 
+        
       },
       {
         headerName: "Number", 
-        field: "number", 
+        field: "number",
+        
       }, 
       {
         headerName: "Topic", 
         field: "topic",
+        
       },
       {
         headerName: "Organization", 
         field: "organization",
+        
       },
     ],
       rowData: [{
@@ -50,6 +54,7 @@ class Contract extends Component {
         number: "3", topic: "Rent", organization: 15 
       }],
       defaultColDef: {
+        resizable: true,
         sortable: true,
         filter: true
       },
@@ -58,6 +63,7 @@ class Contract extends Component {
   onGridReady = params => {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
+    this.gridApi.sizeColumnsToFit();
   }
   onButtonClickAdd() {
     const array = this.state.rowData;
