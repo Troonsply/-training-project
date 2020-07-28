@@ -24,7 +24,7 @@ class Contract extends Component {
     this.state = {
       
       columnDefs: [
-        {
+      {
         headerName: "Check", 
         rowDrag: true,
         checkboxSelection: true, 

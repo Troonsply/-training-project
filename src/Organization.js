@@ -1,8 +1,12 @@
 import { AgGridReact } from 'ag-grid-react';
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
+import 'ag-grid-enterprise';
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+// import FormaContract from "./FormaContract";
+// import { makeStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
 
 const connect = require("react-redux").connect;
 const actions = require("./actions.jsx");
@@ -11,32 +15,39 @@ class Organization extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      columnDefs: [{
-        headerName: "Number", field: "number", checkboxSelection: true
-      }, {
-        headerName: "Name", field: "name"
-      }, {
-        headerName: "Contract", field: "contract"
+      columnDefs: [
+      {
+        headerName: "Check", 
+        rowDrag: true,
+        checkboxSelection: true,  
+      },{
+        headerName: "Name", 
+        field: "name"
+      },{
+        headerName: "Adress", 
+        field: "adress"
+      },{
+        headerName: "Contract", 
+        field: "contract"
       }],
       rowData: [{
-        number: "1", name: "Test", contract: 13
+        adress: "Perm'", name: "Test", contract: 13
       }, {
-        number: "2", name: "Test", contract: 14
+        adress: "Ekaterinburg", name: "Test", contract: 14
       }, {
-        number: "3", name: "Test", contract: 15
+        adress: "Saint-P", name: "Test", contract: 15
       }],
       defaultColDef: {
-        flex: 1,
-        minWidth: 100,
-        editable: true,
+        resizable: true,
         sortable: true,
-        filter: true,
+        filter: true
       },
     }
   }
   onGridReady = params => {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
+    this.gridApi.sizeColumnsToFit();
   }
   onButtonClickAdd() {
     const array = this.state.rowData;
@@ -53,31 +64,40 @@ class Organization extends Component {
   render() {
     return (
       <div
-        className="ag-theme-alpine"
-        style={{
-          height: '250px',
-          width: '600px',
-          margin: '0 auto',
-    }}
+        style={{ display:'flex',}} 
       >
-        <button onClick={this.onButtonClickAdd.bind(this)}
-        addButton={this.props.addButton}>Add rows</button>
-        <button onClick={this.onButtonClickDelete.bind(this)}
-        deleteButton={this.props.deleteButton}>Delete rows</button>
-        <AgGridReact
-          columnDefs={this.state.columnDefs}
-          rowSelection="multiple"
-          defaultColDef={this.state.defaultColDef}
-          singleClickEdit={true}
-          rowData={this.state.rowData}
-          onGridReady={this.onGridReady}>
-        </AgGridReact>
+        <div style={{display:'flex', 'flex-direction': 'column', width:'15vw', padding:'10px',}} >
+          <Button
+            style={{margin:'10px',}}
+            variant="contained" 
+            color="primary" 
+            onClick={this.onButtonClickAdd.bind(this)}
+            addButton={this.props.addButton}>Add rows
+          </Button>
+          <Button 
+            style={{margin:'10px',}}
+            variant="contained" 
+            color="primary" 
+            onClick={this.onButtonClickDelete.bind(this)}
+            deleteButton={this.props.deleteButton}>Delete
+          </Button>
+          </div>
+          <div className="ag-theme-alpine" style={ {height: '100vh', width: '100vw'} }>
+            <AgGridReact
+              columnDefs={this.state.columnDefs}
+              defaultColDef={this.state.defaultColDef}
+              rowData={this.state.rowData}
+              onGridReady={this.onGridReady}
+              rowDragManaged={true}
+              animateRows={true}>
+            </AgGridReact>
+          </div>
       </div>
     );
   }
 }
 ReactDOM.render(
-  <Organization />,
+  <Organization></Organization>,
   document.getElementById('root')
 );
 export default Organization;
