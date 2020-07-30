@@ -5,13 +5,13 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import Project from './Projects'
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -43,7 +43,9 @@ const names = [
   'Virginia Andrews',
   'Kelly Snyder',
 ];
+const listOrg = [
 
+];
 function getStyles(name, personName, theme) {
   return {
     fontWeight:
@@ -58,10 +60,15 @@ export default function FormDialog() {
     const classes = useStyles();
     const theme = useTheme();
     const [personName, setPersonName] = React.useState([]);
-
+    const [nameOrg, setNameOrg] = React.useState([]);
+    const [name, setName] = React.useState('');
+    const [dateProject, setDateProject] = React.useState('');
     const handleChange = (event) => {
         setPersonName(event.target.value);
-      };    
+        setNameOrg(event.target.value);
+        setName(event.value);
+        setDateProject(event.value);
+    };
 
     const handleClickOpen = () => {
       setOpen(true);
@@ -71,8 +78,8 @@ export default function FormDialog() {
       setOpen(false);
     }
     
-    const handleSave = () => {
-
+    const handleSave = (props) => {
+        console.log(props.Project)
     }
     return (
       <div style={{marginLeft:'15px'}}>
@@ -90,13 +97,24 @@ export default function FormDialog() {
               type="text"
               fullWidth
             />
-            <TextField
-              margin="dense"
-              id="organization"
-              label="Организация Проекта"
-              type="text"
-              fullWidth
-            />
+            <FormControl className={classes.formControl} fullWidth>
+                <InputLabel id="demo-mutiple-name-label">Организации</InputLabel>
+                <Select
+                labelId="demo-mutiple-name-label"
+                id="demo-mutiple-name"
+                multiple
+                value={nameOrg}
+                onChange={handleChange}
+                input={<Input />}
+                MenuProps={MenuProps}
+                >
+                {listOrg.map((name) => (
+                    <MenuItem key={name} value={name} >
+                    {name}
+                    </MenuItem>
+                ))}
+                </Select>
+            </FormControl>
             <FormControl className={classes.formControl} fullWidth>
                 <InputLabel id="demo-mutiple-name-label">Участники Проекта</InputLabel>
                 <Select

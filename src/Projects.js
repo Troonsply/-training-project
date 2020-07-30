@@ -57,13 +57,13 @@ class Project extends Component {
     this.gridColumnApi = params.columnApi;
     this.gridApi.sizeColumnsToFit();
   }
-  onButtonClickAdd() {
-    const array = this.state.rowData;
-    console.log(this.state.rowData);
-    const element = { name: "", organization: " ", list:"" };
-    array.push(element);
-    return this.gridApi.setRowData(array);
-  }
+//   onButtonClickAdd() {
+//     const array = this.state.rowData;
+//     console.log(this.state.rowData);
+//     const element = { name: "", organization: " ", list:"" };
+//     array.push(element);
+//     return this.gridApi.setRowData(array);
+//   }
    onButtonClickDelete() {
     const selected = this.gridApi.getFocusedCell();
     this.state.rowData.splice(selected.rowIndex, 1);
