@@ -4,9 +4,8 @@ import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
 import 'ag-grid-enterprise';
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-// import FormaContract from "./FormaContract";
-// import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
+import FormProject from './FormaProject'
 
 const connect = require("react-redux").connect;
 const actions = require("./actions.jsx");
@@ -23,24 +22,28 @@ class Project extends Component {
         checkboxSelection: true, 
       },
       {
-        headerName: "Name", 
+        headerName: "Наименование Проекта", 
         field: "name", 
       }, 
       {
-        headerName: "Organization", 
+        headerName: "Организация Проекта", 
         field: "organization",
       },
       {
-        headerName: "List of people", 
+        headerName: "Участники Проекта", 
         field: "list",
+      },
+      {
+        headerName: "Дата Проекта", 
+        field: "dateProject",
       },
     ],
       rowData: [{
-        name: "ABC", organization: "Post", list: ''
+        name: "ABC", organization: "Post", list: 'Ivanov', dateProject: '02/03/20'
       }, {
-        name: "CBA", organization: "Tost", list: ''
+        name: "CBA", organization: "Tost", list: 'Petrov', dateProject: '02/03/20'
       }, {
-        name: "CAB", organization: "Most", list: '' 
+        name: "CAB", organization: "Most", list: 'Kikimorov', dateProject: '02/03/20' 
       }],
       defaultColDef: {
         resizable: true,
@@ -66,28 +69,23 @@ class Project extends Component {
     this.state.rowData.splice(selected.rowIndex, 1);
     this.gridApi.setRowData(this.state.rowData);   
   }
+  
   render() {
     return (
       <div
-        style={{ display:'flex',}}
+        style={{ display:'flex','flex-direction': 'column'}}
         >
-        <div style={{display:'flex', 'flex-direction': 'column', width:'15vw', padding:'10px',}} >
-          <Button
-            style={{margin:'10px',}}
-            variant="contained" 
-            color="primary" 
-            onClick={this.onButtonClickAdd.bind(this)}
-            addButton={this.props.addButton}>Add rows
-          </Button>
+        <div style={{display:'flex','justify-content':'space-between',}} >
+          <FormProject />
           <Button 
-            style={{margin:'10px',}}
+            style={{margin:'15px',}}
             variant="contained" 
             color="primary" 
             onClick={this.onButtonClickDelete.bind(this)}
             deleteButton={this.props.deleteButton}>Delete
           </Button>
           </div>
-          <div className="ag-theme-alpine" style={ {height: '100vh', width: '100vw'} }>
+          <div className="ag-theme-alpine" style={ {height: '100vh', width: '85vw', marginLeft:'20px'} }>
             <AgGridReact
               columnDefs={this.state.columnDefs}
               defaultColDef={this.state.defaultColDef}

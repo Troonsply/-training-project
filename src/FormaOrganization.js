@@ -16,44 +16,37 @@ export default function FormDialog() {
     const handleClose = () => {
       setOpen(false);
     }
-
+    
     const handleSave = () => {
 
     }
     return (
       <div style={{marginLeft:'15px'}}>
         <Button style={{margin:'15px',}} variant="contained"  color="primary" onClick={handleClickOpen}>
-            Добавить Договор
+            Добавить Организацию
         </Button>
         <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-          <DialogTitle id="form-dialog-title">Новый Договор</DialogTitle>
+          <DialogTitle id="form-dialog-title">Новая Организация</DialogTitle>
           <DialogContent>
             <TextField
               autoFocus
               margin="dense"
-              id="number"
+              id="name"
+              label="Наименование Организации"
+              type="text"
+              fullWidth
+            />
+            <TextField
+              margin="dense"
+              id="adress"
+              label="Адрес Организации"
+              type="text"
+              fullWidth
+            />
+            <TextField
+              margin="dense"
+              id="contract"
               label="Номер Договора"
-              type="text"
-              fullWidth
-            />
-            <TextField
-              margin="dense"
-              id="topic"
-              label="Предмет"
-              type="text"
-              fullWidth
-            />
-            <TextField
-              margin="dense"
-              id="organization"
-              label="Организация"
-              type="text"
-              fullWidth
-            />
-            <TextField
-              margin="dense"
-              id="member"
-              label="Участники"
               type="text"
               fullWidth
             />
@@ -61,13 +54,6 @@ export default function FormDialog() {
               margin="dense"
               id="project"
               label="Проект"
-              type="text"
-              fullWidth
-            />
-            <TextField
-              margin="dense"
-              id="date"
-              label="Дата Договора"
               type="text"
               fullWidth
             />

@@ -7,6 +7,7 @@ import ReactDOM from 'react-dom';
 // import FormaContract from "./FormaContract";
 // import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
+import FormOrganization from './FormaOrganization'
 
 const connect = require("react-redux").connect;
 const actions = require("./actions.jsx");
@@ -21,15 +22,19 @@ class Organization extends Component {
         rowDrag: true,
         checkboxSelection: true,  
       },{
-        headerName: "Name", 
+        headerName: "Наименование Организации", 
         field: "name"
       },{
-        headerName: "Adress", 
+        headerName: "Адрес Организации", 
         field: "adress"
       },{
-        headerName: "Contract", 
+        headerName: "Номер Договора", 
         field: "contract"
-      }],
+      },{
+        headerName: "Проект", 
+        field: "project"
+      }
+    ],
       rowData: [{
         adress: "Perm'", name: "Test", contract: 13
       }, {
@@ -64,25 +69,19 @@ class Organization extends Component {
   render() {
     return (
       <div
-        style={{ display:'flex',}} 
+        style={{ display:'flex','flex-direction': 'column'}} 
       >
-        <div style={{display:'flex', 'flex-direction': 'column', width:'15vw', padding:'10px',}} >
-          <Button
-            style={{margin:'10px',}}
-            variant="contained" 
-            color="primary" 
-            onClick={this.onButtonClickAdd.bind(this)}
-            addButton={this.props.addButton}>Add rows
-          </Button>
+        <div style={{display:'flex','justify-content':'space-between',}} >
+          <FormOrganization />
           <Button 
-            style={{margin:'10px',}}
+            style={{margin:'15px',}}
             variant="contained" 
             color="primary" 
             onClick={this.onButtonClickDelete.bind(this)}
-            deleteButton={this.props.deleteButton}>Delete
+            deleteButton={this.props.deleteButton}>Удалить Организацию
           </Button>
           </div>
-          <div className="ag-theme-alpine" style={ {height: '100vh', width: '100vw'} }>
+          <div className="ag-theme-alpine" style={ {height: '100vh', width: '85vw', marginLeft:'20px'} }>
             <AgGridReact
               columnDefs={this.state.columnDefs}
               defaultColDef={this.state.defaultColDef}

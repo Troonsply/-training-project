@@ -23,9 +23,6 @@ const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
   },
-  paper: {
-    marginRight: theme.spacing(2),
-  },
   menu: {
     height: '100vh',
   }
@@ -36,7 +33,7 @@ export default function Header() {
   return (
     <div className={classes.root}>
       <Router>
-        <Paper className={classes.paper}>
+        <Paper>
           <MenuList className={classes.menu}>
             <MenuItem>
               <ListItemIcon>

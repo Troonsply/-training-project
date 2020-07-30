@@ -4,9 +4,8 @@ import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
 import 'ag-grid-enterprise';
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-// import FormaContract from "./FormaContract";
-// import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
+import FormContract from './FormaContract'
 
 const connect = require("react-redux").connect;
 const actions = require("./actions.jsx");
@@ -31,27 +30,42 @@ class Contract extends Component {
         
       },
       {
-        headerName: "Number", 
+        headerName: "Номер", 
         field: "number",
         
       }, 
       {
-        headerName: "Topic", 
+        headerName: "Предмет", 
         field: "topic",
         
       },
       {
-        headerName: "Organization", 
+        headerName: "Организация", 
         field: "organization",
         
       },
+      {
+        headerName: "Участники", 
+        field: "member",
+        
+      },
+      {
+        headerName: "Проект", 
+        field: "project",
+        
+      },
+      {
+        headerName: "Дата договора", 
+        field: "date",
+        
+      },
     ],
-      rowData: [{
-        number: "1", topic: "Purchase", organization: 13
+    rowData: [{
+        number: "1", topic: "Purchase", organization: 13, member: 'Ivanov', project: 'ABC', date: '01/02/23'
       }, {
-        number: "2", topic: "Sale", organization: 14
+        number: "2", topic: "Sale", organization: 14, member: 'Petrov', project: 'CBA', date: '03/04/25'
       }, {
-        number: "3", topic: "Rent", organization: 15 
+        number: "3", topic: "Rent", organization: 15, member: 'Kryokov', project: 'CAB', date: '04/05/26' 
       }],
       defaultColDef: {
         resizable: true,
@@ -63,7 +77,7 @@ class Contract extends Component {
   onGridReady = params => {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
-    this.gridApi.sizeColumnsToFit();
+    this.gridColumnApi.sizeColumnsToFit();
   }
   onButtonClickAdd() {
     const array = this.state.rowData;
@@ -72,7 +86,7 @@ class Contract extends Component {
     array.push(element);
     return this.gridApi.setRowData(array);
   }
-   onButtonClickDelete() {
+  onButtonClickDelete() {
     const selected = this.gridApi.getFocusedCell();
     this.state.rowData.splice(selected.rowIndex, 1);
     this.gridApi.setRowData(this.state.rowData);   
@@ -80,25 +94,19 @@ class Contract extends Component {
   render() {
     return (
       <div
-        style={{ display:'flex',}} 
+        style={{ display:'flex','flex-direction': 'column'}} 
       >
-        <div style={{display:'flex', 'flex-direction': 'column', width:'15vw', padding:'10px',}} >
-          <Button
-            style={{margin:'10px',}}
-            variant="contained" 
-            color="primary" 
-            onClick={this.onButtonClickAdd.bind(this)}
-            addButton={this.props.addButton}>Add rows
-          </Button>
+        <div style={{display:'flex','justify-content':'space-between',}} >
+          <FormContract />
           <Button 
-            style={{margin:'10px',}}
+            style={{margin:'15px',}}
             variant="contained" 
             color="primary" 
             onClick={this.onButtonClickDelete.bind(this)}
-            deleteButton={this.props.deleteButton}>Delete
+            deleteButton={this.props.deleteButton}>Удалить Договор
           </Button>
           </div>
-          <div className="ag-theme-alpine" style={ {height: '100vh', width: '100vw'} }>
+          <div className="ag-theme-alpine" style={ {height: '100vh', width: '85vw', marginLeft:'20px'} }>
             <AgGridReact
               columnDefs={this.state.columnDefs}
               defaultColDef={this.state.defaultColDef}
